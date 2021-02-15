@@ -9,9 +9,10 @@ import (
 	"strings"
 )
 
+var yearlyContributions string
+
 func getContributions(username string) string {
 	url := "https://github.com/users/" + username + "/contributions"
-	var yearlyContributions string
 
 	response, err := http.Get(url)
 	if err != nil {
@@ -32,13 +33,23 @@ func getContributions(username string) string {
 		case token == html.StartTagToken:
 			t := tokenizer.Token()
 
+			// trying to get data-count for streak 
+			if t.Data == "rect" {
+				fmt.Println("in rect")
+				for _, a := range t.Attr {
+					if a.Key == "data-count" {
+						fmt.Println("Found data-count:", a.Val)
+						break
+					}
+				}
+			}
+
 			if t.Data == "h2" {
 				token = tokenizer.Next()
 				t := tokenizer.Token()
 				// strings.Fields splits the string s around each instance of
 				// one or more consecutive white space characters
-				yearlyContributions := strings.Fields(t.Data)[0]
-				return yearlyContributions
+				yearlyContributions = strings.Fields(t.Data)[0]
 			}
 
 		case token == html.ErrorToken:
