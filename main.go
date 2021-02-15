@@ -49,6 +49,6 @@ func getContributions(username string) string {
 }
 
 func main() {
-	yearlyContributions := getContributions("nelsonfigueroa8a9dwj")
+	yearlyContributions := getContributions("nelsonfigueroa")
 	fmt.Println("Commits in the past year:", yearlyContributions)
 }
