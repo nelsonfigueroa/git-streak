@@ -2,35 +2,53 @@ package main
 
 import (
 	"fmt"
+	"golang.org/x/net/html"
 	"log"
 	"net/http"
-	// "strings"
-	"io/ioutil"
-	// "golang.org/x/net/html"
+	"os"
+	"strings"
 )
 
-/* Add your username here */
-const Username = "nelsonfigueroa"
-
-
-func getContributions() string {
-	url := "https://github.com/users/" + Username + "/contributions"
+func getContributions(username string) string {
+	url := "https://github.com/users/" + username + "/contributions"
+	var yearlyContributions string
 
 	response, err := http.Get(url)
 	if err != nil {
-			log.Fatal(err)
+		log.Fatal(err)
 	}
 
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		log.Fatalln(err)
+	if response.Status == "404 Not Found" {
+		fmt.Println("404 Not Found. Are you sure the username exists?")
+		os.Exit(1)
 	}
 
-	fmt.Println("HTML:\n\n", string(body))
+	tokenizer := html.NewTokenizer(response.Body)
 
-	return "test"
+	for {
+		token := tokenizer.Next()
+
+		switch {
+		case token == html.StartTagToken:
+			t := tokenizer.Token()
+
+			if t.Data == "h2" {
+				token = tokenizer.Next()
+				t := tokenizer.Token()
+				// strings.Fields splits the string s around each instance of
+				// one or more consecutive white space characters
+				yearlyContributions := strings.Fields(t.Data)[0]
+				return yearlyContributions
+			}
+
+		case token == html.ErrorToken:
+			// end of the document
+			return yearlyContributions
+		}
+	}
 }
 
 func main() {
-	getContributions()
+	yearlyContributions := getContributions("nelsonfigueroa8a9dwj")
+	fmt.Println("Commits in the past year:", yearlyContributions)
 }
