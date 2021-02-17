@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"golang.org/x/net/html"
+	"github.com/fatih/color"
 	"log"
 	"net/http"
 	"os"
@@ -35,10 +36,10 @@ func getContributions(username string) string {
 
 			// trying to get data-count for streak 
 			if t.Data == "rect" {
-				fmt.Println("in rect")
+				// fmt.Println("in rect")
 				for _, a := range t.Attr {
 					if a.Key == "data-count" {
-						fmt.Println("Found data-count:", a.Val)
+						// fmt.Println("Found data-count:", a.Val)
 						break
 					}
 				}
@@ -61,5 +62,5 @@ func getContributions(username string) string {
 
 func main() {
 	yearlyContributions := getContributions("nelsonfigueroa")
-	fmt.Println("Commits in the past year:", yearlyContributions)
+	fmt.Printf("Commits in the past year: %s \n", color.GreenString(yearlyContributions))
 }
