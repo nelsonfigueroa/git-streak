@@ -81,7 +81,10 @@ func getStreak(datesAndCommits map[string]string) int {
 
 	// check if extra date exists in the map, delete if it does
 	if _, val := datesAndCommits[currentDate]; val {
+		// remove from map
 		delete(datesAndCommits, currentDate)
+		// remove from keys slice
+		datesKeys = datesKeys[:len(datesKeys)-1]
 	}
 
 	// count streak
@@ -97,13 +100,19 @@ func getStreak(datesAndCommits map[string]string) int {
 }
 
 func main() {
-	yearlyContributions, datesAndCommits := getContributions("nelsonfigueroa")
+	username := "nelsonfigueroa"
+
+	if len(os.Args) > 1 {
+		username = os.Args[1]
+	}
+
+	yearlyContributions, datesAndCommits := getContributions(username)
 	streak := getStreak(datesAndCommits)
 
 	fmt.Printf("Commits in the past year: %s \n", color.GreenString(yearlyContributions))
 
 	if streak == 0 {
-		fmt.Println("\tCurrent streak: 0 days.")
+		fmt.Println("Current streak: 0 days.")
 	} else {
 		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(streak))+" days, since "+time.Now().AddDate(0, 0, (streak*-1)).Format("2006/01/02"))
 	}
