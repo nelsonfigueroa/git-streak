@@ -1,2 +1,2 @@
 # git-stats
-View commit statistics for public repositories.
+View commit statistics in the past year.

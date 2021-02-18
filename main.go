@@ -13,9 +13,6 @@ import (
 )
 
 var yearlyContributions string
-
-// dates = strings
-// commits = ints
 var datesAndCommits = make(map[string]string)
 
 // slice for in-order iteration of datesAndCommits
@@ -76,15 +73,11 @@ func getContributions(username string) (string, map[string]string) {
 	}
 }
 
-func getStreak(datesAndCommits map[string]string) string {
+func getStreak(datesAndCommits map[string]string) int {
 	var streak int
 
 	// check if GitHub contributions added tomorrow's date. If so, remove from map
 	currentDate := time.Now().AddDate(0, 0, 1).Format("2006-01-02")
-
-	if currentDate == "2021-02-17" {
-		fmt.Println("Matches!")
-	}
 
 	// check if extra date exists in the map, delete if it does
 	if _, val := datesAndCommits[currentDate]; val {
@@ -100,23 +93,18 @@ func getStreak(datesAndCommits map[string]string) string {
 		}
 	}
 
-	return strconv.Itoa(streak)
+	return streak
 }
 
 func main() {
-	yearlyContributions, datesAndCommits = getContributions("nelsonfigueroa")
+	yearlyContributions, datesAndCommits := getContributions("nelsonfigueroa")
 	streak := getStreak(datesAndCommits)
 
-	fmt.Println("\t+--------------------------------+\n")
-	fmt.Printf("\tCommits in the past year: %s \n", color.GreenString(yearlyContributions))
-	fmt.Println("\t                                ")
+	fmt.Printf("Commits in the past year: %s \n", color.GreenString(yearlyContributions))
 
-	if streak == "0" {
+	if streak == 0 {
 		fmt.Println("\tCurrent streak: 0 days.")
 	} else {
-		fmt.Printf("\tCurrent streak: %s \n", color.GreenString(streak)+" days.")
+		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(streak))+" days, since "+time.Now().AddDate(0, 0, (streak*-1)).Format("2006/01/02"))
 	}
-
-	fmt.Println("\n\t+--------------------------------+")
-
 }
