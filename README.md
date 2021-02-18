@@ -1,6 +1,6 @@
 # git-streak
 
-View commit GitHub commit streaks in the past year.
+View GitHub commit stats in the past year.
 
 ## Setup
 
