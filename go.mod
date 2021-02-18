@@ -1,4 +1,4 @@
-module git-stats
+module git-streak
 
 go 1.15
 

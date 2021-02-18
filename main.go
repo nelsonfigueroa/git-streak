@@ -13,13 +13,12 @@ import (
 	"time"
 )
 
-var yearlyContributions string
-var datesAndCommits = make(map[string]string)
-
 // slice for in-order iteration of datesAndCommits
 var datesKeys = []string{}
 
 func getContributions(username string) (string, map[string]string) {
+	var yearlyContributions string
+	var datesAndCommits = make(map[string]string)
 	url := "https://github.com/users/" + username + "/contributions"
 
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
