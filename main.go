@@ -123,8 +123,11 @@ func main() {
 	yearlyContributions, datesAndCommits := getContributions(username)
 	currentStreak, bestDay, bestDayCount := getStreak(datesAndCommits)
 
+	// add color where needed
+	color := color.New(color.FgGreen, color.Bold).SprintFunc()
+
 	// commits in the past year
-	fmt.Printf("Commits in the past year: %s \n", color.GreenString(yearlyContributions))
+	fmt.Printf("Commits in the past year: %s \n", color(yearlyContributions))
 
 	// current streak
 	if currentStreak == 0 {
@@ -132,7 +135,7 @@ func main() {
 	} else {
 		// subtract (streak - 1) days from current date
 		sinceDate := time.Now().AddDate(0, 0, ((currentStreak - 1) * -1)).Format("2006/01/02")
-		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(currentStreak))+" day(s), since "+sinceDate)
+		fmt.Printf("Current streak: %s \n", color(strconv.Itoa(currentStreak))+" day(s), since "+sinceDate)
 	}
 
 	// best day
@@ -140,6 +143,6 @@ func main() {
 		// parse date in YYYY-MM-DD format to change it to YYYY/MM/DD
 		parseDate, _ := time.Parse("2006-01-02", bestDay)
 		bestDayFormatted := parseDate.Format("2006/01/02")
-		fmt.Printf("Best day: %s, with %s commit(s).\n", bestDayFormatted, color.GreenString(strconv.Itoa(bestDayCount)))
+		fmt.Printf("Best day: %s, with %s commit(s).\n", bestDayFormatted, color(strconv.Itoa(bestDayCount)))
 	}
 }
