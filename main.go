@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
 	"golang.org/x/net/html"
 	"log"
@@ -21,10 +22,15 @@ var datesKeys = []string{}
 func getContributions(username string) (string, map[string]string) {
 	url := "https://github.com/users/" + username + "/contributions"
 
+	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+	s.Start()
+
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	s.Stop()
 
 	if response.Status == "404 Not Found" {
 		fmt.Println("404 Not Found. Are you sure the username exists?")
@@ -114,6 +120,8 @@ func main() {
 	if streak == 0 {
 		fmt.Println("Current streak: 0 days.")
 	} else {
-		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(streak))+" days, since "+time.Now().AddDate(0, 0, (streak*-1)).Format("2006/01/02"))
+		// subtract (streak - 1) days from current date
+		sinceDate := time.Now().AddDate(0, 0, ((streak - 1) * -1)).Format("2006/01/02")
+		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(streak))+" days, since "+sinceDate)
 	}
 }
