@@ -113,6 +113,7 @@ func getStreak(datesAndCommits map[string]string) (int, string, int) {
 }
 
 func main() {
+	// replace this with your username if you'd rather have the username hardcoded
 	username := "nelsonfigueroa"
 
 	// replace username if provided as subcommand

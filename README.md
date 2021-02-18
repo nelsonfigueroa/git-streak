@@ -10,9 +10,11 @@ You'll need Go installed. Clone the repo, and get dependencies:
 go get
 ```
 
-`git-streak` gets contributions from a specified username. You have the option of hardcoding this username in the code or passing in the username as an argument when running.
+`git-streak` gets contributions from a specified GitHub username. You have the option of hardcoding this username in the code or passing in the username as an argument when running. Regardless of the hardcoded username, you can still pass in a username as an argument.
 
-After the username is updated, build the binary:
+If you'd like to hardcode the username, modify the `username` variable in the `main()` function.
+
+Next, build the binary:
 
 ```
 go build
@@ -20,7 +22,7 @@ go build
 
 ## Running
 
-Get streaks for pre-defined username:
+Get streaks for pre-defined (hardcoded) username:
 
 ```
 ./git-streak
