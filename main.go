@@ -79,8 +79,10 @@ func getContributions(username string) (string, map[string]string) {
 	}
 }
 
-func getStreak(datesAndCommits map[string]string) int {
+func getStreak(datesAndCommits map[string]string) (int, string, int) {
 	var streak int
+	var bestDay string
+	var bestDayCount = 0
 
 	// check if GitHub contributions added tomorrow's date. If so, remove from map
 	currentDate := time.Now().AddDate(0, 0, 1).Format("2006-01-02")
@@ -98,30 +100,47 @@ func getStreak(datesAndCommits map[string]string) int {
 		if datesAndCommits[key] == "0" {
 			streak = 0
 		} else {
+			// keep track of best day
+			currentCount, _ := strconv.Atoi(datesAndCommits[key])
+			if currentCount > bestDayCount {
+				bestDay = key
+				bestDayCount = currentCount
+			}
 			streak++
 		}
 	}
 
-	return streak
+	return streak, bestDay, bestDayCount
 }
 
 func main() {
 	username := "nelsonfigueroa"
 
+	// replace username if provided as subcommand
 	if len(os.Args) > 1 {
 		username = os.Args[1]
 	}
 
 	yearlyContributions, datesAndCommits := getContributions(username)
-	streak := getStreak(datesAndCommits)
+	currentStreak, bestDay, bestDayCount := getStreak(datesAndCommits)
 
+	// commits in the past year
 	fmt.Printf("Commits in the past year: %s \n", color.GreenString(yearlyContributions))
 
-	if streak == 0 {
+	// current streak
+	if currentStreak == 0 {
 		fmt.Println("Current streak: 0 days.")
 	} else {
 		// subtract (streak - 1) days from current date
-		sinceDate := time.Now().AddDate(0, 0, ((streak - 1) * -1)).Format("2006/01/02")
-		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(streak))+" days, since "+sinceDate)
+		sinceDate := time.Now().AddDate(0, 0, ((currentStreak - 1) * -1)).Format("2006/01/02")
+		fmt.Printf("Current streak: %s \n", color.GreenString(strconv.Itoa(currentStreak))+" day(s), since "+sinceDate)
+	}
+
+	// best day
+	if bestDayCount > 0 {
+		// parse date in YYYY-MM-DD format to change it to YYYY/MM/DD
+		parseDate, _ := time.Parse("2006-01-02", bestDay)
+		bestDayFormatted := parseDate.Format("2006/01/02")
+		fmt.Printf("Best day: %s, with %s commit(s).\n", bestDayFormatted, color.GreenString(strconv.Itoa(bestDayCount)))
 	}
 }
