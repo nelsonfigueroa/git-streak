@@ -140,12 +140,15 @@ func printCurrentStreak(currentStreak int) {
 }
 
 func printBestDay(bestDayCount int, bestDay string) {
-	if bestDayCount > 0 {
-		// parse date in YYYY-MM-DD format to change it to YYYY/MM/DD
-		parseDate, _ := time.Parse("2006-01-02", bestDay)
-		bestDayFormatted := parseDate.Format("2006/01/02")
+	// parse date in YYYY-MM-DD format to change it to YYYY/MM/DD
+	parseDate, _ := time.Parse("2006-01-02", bestDay)
+	bestDayFormatted := parseDate.Format("2006/01/02")
 
-		fmt.Printf("Best day: %s, with %s commit(s).\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
+	// determine whether to use "commit" or "commits"
+	if bestDayCount > 1 {
+		fmt.Printf("Best day: %s, with %s commits.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
+	} else if bestDayCount == 1 {
+		fmt.Printf("Best day: %s, with %s commit.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
 	}
 }
 
