@@ -28,8 +28,8 @@ Get streaks for pre-defined (hardcoded) username:
 ./git-streak
 
 Commits in the past year: 547
-Current streak: 7 day(s), since 2021/02/11
-Best day: 2020/03/14, with 20 commit(s).
+Current streak: 7 days, since 2021/02/11
+Best day: 2020/03/14, with 20 commits.
 ```
 
 Get streaks for a username specified as an argument:
@@ -37,7 +37,7 @@ Get streaks for a username specified as an argument:
 ```
 ./git-streak torvalds
 
-Commits in the past year: 2,550
+Commits in the past year: 2,678
 Current streak: 0 days.
-Best day: 2020/08/03, with 47 commit(s).
+Best day: 2021/02/22, with 53 commits.
 ```
