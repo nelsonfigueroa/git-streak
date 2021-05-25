@@ -69,8 +69,7 @@ func getContributions(username string) (string, map[string]string) {
 			if t.Data == "h2" {
 				token = tokenizer.Next()
 				t := tokenizer.Token()
-				// strings.Fields splits the string s around each instance of
-				// one or more consecutive white space characters
+				// strings.Fields splits the string on one or more consecutive white characters
 				yearlyContributions = strings.Fields(t.Data)[0]
 			}
 
@@ -160,6 +159,8 @@ func main() {
 	if len(os.Args) > 1 {
 		username = os.Args[1]
 	}
+
+	fmt.Printf("Getting stats for %s\n", username)
 
 	yearlyContributions, datesAndCommits := getContributions(username)
 	currentStreak, bestDay, bestDayCount := getStreak(datesAndCommits)
