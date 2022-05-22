@@ -4,13 +4,13 @@ View GitHub commit stats in the past year.
 
 ## Setup
 
-You'll need Go installed. Clone the repo, and get dependencies:
+You'll need Go installed. Then clone the repo. Within the repo install dependencies:
 
 ```
 go get
 ```
 
-`git-streak` gets contributions from a specified GitHub username. You have the option of hardcoding this username in the code or passing in the username as an argument when running. Regardless of the hardcoded username, you can still pass in a username as an argument.
+Before building, know that `git-streak` gets contributions from a specified GitHub username. You have the option of hardcoding this username in the code or passing in the username as an argument when running. Regardless of the hardcoded username, you can still pass in a username as an argument.
 
 If you'd like to hardcode the username, modify the `username` variable in the `main()` function.
 
