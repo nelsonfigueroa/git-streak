@@ -44,8 +44,8 @@ func getContributions(username string) (string, map[string]string) {
 	for {
 		token := tokenizer.Next()
 
-		switch {
-		case token == html.StartTagToken:
+		switch token {
+		case html.StartTagToken:
 			t := tokenizer.Token()
 
 			// iterate through HTML attributes of <rect>
@@ -53,10 +53,15 @@ func getContributions(username string) (string, map[string]string) {
 			var commitCount string
 
 			if t.Data == "rect" {
+				// text inside <rect> </rect>
+				tokenizer.Next()
+				text := string(tokenizer.Text())
+				// get the contributions digit (or "No" if no contributions)
+				commitCount = strings.Split(text, " ")[0]
+	
+				// parse HTML attributes to get date
 				for _, a := range t.Attr {
-					if a.Key == "data-count" {
-						commitCount = a.Val
-					} else if a.Key == "data-date" {
+					if a.Key == "data-date" {
 						date = a.Val
 						datesAndCommits[date] = commitCount
 						datesKeys = append(datesKeys, a.Val)
@@ -73,7 +78,7 @@ func getContributions(username string) (string, map[string]string) {
 				yearlyContributions = strings.Fields(t.Data)[0]
 			}
 
-		case token == html.ErrorToken:
+		case html.ErrorToken:
 			// end of the document
 			return yearlyContributions, datesAndCommits
 		}
@@ -98,11 +103,11 @@ func getStreak(datesAndCommits map[string]string) (int, string, int) {
 
 	// count streak
 	for _, key := range datesKeys {
-		if datesAndCommits[key] == "0" {
+		if datesAndCommits[key] == "No" {
 			streak = 0
 		} else {
 			// keep track of best day
-			currentCount, _ := strconv.Atoi(datesAndCommits[key])
+			currentCount, _ := strconv.Atoi(datesAndCommits[key]) // this *might* need to be updated
 			if currentCount > bestDayCount {
 				bestDay = key
 				bestDayCount = currentCount
