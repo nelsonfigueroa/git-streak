@@ -150,9 +150,9 @@ func printBestDay(bestDayCount int, bestDay string) {
 
 	// determine whether to use "commit" or "commits"
 	if bestDayCount > 1 {
-		fmt.Printf("Best day in the past year: %s, with %s commits.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
+		fmt.Printf("Best day in the past year: %s with %s commits.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
 	} else if bestDayCount == 1 {
-		fmt.Printf("Best day in the past year: %s, with %s commit.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
+		fmt.Printf("Best day in the past year: %s with %s commit.\n", bestDayFormatted, colorize(strconv.Itoa(bestDayCount)))
 	}
 }
 
