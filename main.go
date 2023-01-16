@@ -58,7 +58,7 @@ func getContributions(username string) (string, map[string]string) {
 				text := string(tokenizer.Text())
 				// get the contributions digit (or "No" if no contributions)
 				commitCount = strings.Split(text, " ")[0]
-	
+
 				// parse HTML attributes to get date
 				for _, a := range t.Attr {
 					if a.Key == "data-date" {
