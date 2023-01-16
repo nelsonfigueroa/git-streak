@@ -25,19 +25,36 @@ go build
 Get streaks for pre-defined (hardcoded) username:
 
 ```
-./git-streak
+$ ./git-streak
 
-Commits in the past year: 547
-Current streak: 7 days, since 2021/02/11
-Best day: 2020/03/14, with 20 commits.
+
+	 ██████╗ ██╗████████╗    ███████╗████████╗██████╗ ███████╗ █████╗ ██╗  ██╗
+	██╔════╝ ██║╚══██╔══╝    ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██╔══██╗██║ ██╔╝
+	██║  ███╗██║   ██║       ███████╗   ██║   ██████╔╝█████╗  ███████║█████╔╝
+	██║   ██║██║   ██║       ╚════██║   ██║   ██╔══██╗██╔══╝  ██╔══██║██╔═██╗
+	╚██████╔╝██║   ██║       ███████║   ██║   ██║  ██║███████╗██║  ██║██║  ██╗
+	 ╚═════╝ ╚═╝   ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+Getting stats for nelsonfigueroa
+Commits in the past year: 392
+Current streak: 7 days, since 2023/01/10
+Best day in the past year: 2022/11/06 with 10 commits.
 ```
 
 Get streaks for a username specified as an argument:
 
 ```
-./git-streak torvalds
+$ ./git-streak torvalds
 
-Commits in the past year: 2,678
-Current streak: 0 days.
-Best day: 2021/02/22, with 53 commits.
+	 ██████╗ ██╗████████╗    ███████╗████████╗██████╗ ███████╗ █████╗ ██╗  ██╗
+	██╔════╝ ██║╚══██╔══╝    ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██╔══██╗██║ ██╔╝
+	██║  ███╗██║   ██║       ███████╗   ██║   ██████╔╝█████╗  ███████║█████╔╝
+	██║   ██║██║   ██║       ╚════██║   ██║   ██╔══██╗██╔══╝  ██╔══██║██╔═██╗
+	╚██████╔╝██║   ██║       ███████║   ██║   ██║  ██║███████╗██║  ██║██║  ██╗
+	 ╚═════╝ ╚═╝   ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+Getting stats for torvalds
+Commits in the past year: 2,549
+Current streak: 13 days, since 2023/01/04
+Best day in the past year: 2022/12/12 with 81 commits.
 ```
